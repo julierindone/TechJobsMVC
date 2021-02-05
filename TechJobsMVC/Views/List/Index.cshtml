@@ -5,22 +5,25 @@
 
 <table class="centeredTable">
     <tr>
-        @foreach(var column in ViewBag.columns)
+        @foreach(var column in ViewBag.columns)    ////Viewbags are created in ListController Index method!
         {
-            <th>@column.Value</th>
+            <th>@column.Value</th>                      ///////these create the headings. 
         }
     </tr>
-    <tr>
-        @{
-            //TODO #2: Complete the View Jobs By Category Table
-        }
+    <tr>  
+            <td>
+                <ul>
+                    <li>
+                        <a asp-controller="List" asp-action="Jobs" asp-route-column="all">View All</a>
+                    </li>
+                </ul>
+            </td> 
 
-        <td></td> @* Feel free to remove or modify this element if necessary. *@
-        @foreach (var category in ViewBag.tableChoices)
+        @foreach (var category in ViewBag.tableChoices)  //for each List<JobField> in the TableChoices dict
         {
             <td>
                 <ul>
-                    @foreach (var item in category.Value)
+                    @foreach (var item in category.Value)    //each Value is the Value property of a different JobField object (Employer, etc).
                     {
                         <li>
                             <a asp-controller="List" asp-action="Jobs" asp-route-column="@category.Key" asp-route-value="@item">@item</a>
@@ -31,3 +34,7 @@
         }
     </tr>
         </table>
+
+@*asp-controller = which controller to use.
+  asp-action = which method we're linking to
+  asp-route-column & asp-route-value = for the jobs method, @category.Key will be the value for that column parameter and @item will be the value for the value parameter.*@
